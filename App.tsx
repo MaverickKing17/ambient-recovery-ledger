@@ -124,7 +124,7 @@ const App: React.FC = () => {
           Back to Ledger
         </button>
 
-        <div className="glass rounded-3xl p-12 border border-white/10 relative overflow-hidden mb-12 shadow-2xl">
+        <div className="glass rounded-[32px] p-12 border border-white/10 relative overflow-hidden mb-12 shadow-2xl">
           <div className="absolute top-0 right-0 w-[400px] h-[400px] blur-[100px] pointer-events-none opacity-20" style={{ backgroundColor: tenant.primaryColor }}></div>
           <div className="relative z-10">
             <h2 className="text-4xl md:text-5xl font-black tracking-tighter mb-4 text-white uppercase">{pageTitle}</h2>
@@ -136,42 +136,47 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-transparent text-slate-100 pb-32 pt-10">
+    <div className="min-h-screen bg-transparent text-slate-100 pb-32 pt-14">
       <BloombergTicker />
       
       {/* Header */}
-      <header className="relative py-12 px-6 text-center">
-        <div className="absolute top-12 right-6 hidden md:flex items-center gap-3 px-4 py-1.5 rounded-full glass border-white/5 cursor-pointer hover:border-white/20 transition-all" onClick={() => setCurrentView('dashboard')}>
-          <div className={`w-2.5 h-2.5 rounded-full pulse-indicator ${statusConfig.color}`}></div>
-          <span className="text-[10px] uppercase font-black tracking-widest text-slate-400">{statusConfig.text}</span>
+      <header className="relative py-14 px-6 text-center">
+        <div className="absolute top-14 right-6 hidden md:flex items-center gap-3 px-5 py-2 rounded-full glass border-white/10 cursor-pointer hover:border-white/20 transition-all shadow-xl" onClick={() => setCurrentView('dashboard')}>
+          <div className={`w-3 h-3 rounded-full pulse-indicator ${statusConfig.color}`}></div>
+          <span className="text-[11px] uppercase font-black tracking-[0.2em] text-slate-300">{statusConfig.text}</span>
         </div>
 
-        <div className="flex items-center justify-center gap-4 mb-2 cursor-pointer group" onClick={() => setCurrentView('dashboard')}>
-          {tenant.logo ? (
-            <img src={tenant.logo} alt="Logo" className="w-12 h-12 rounded-xl object-cover border border-white/10 group-hover:scale-110 transition-transform" />
-          ) : (
-            <svg className="w-10 h-10 transition-transform group-hover:scale-110" style={{ color: tenant.primaryColor }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-          )}
-          <h1 className="text-4xl font-black tracking-tighter text-white uppercase">{tenant.name}</h1>
+        <div className="flex flex-col items-center justify-center gap-6 mb-2">
+          <div 
+            onClick={() => setCurrentView('dashboard')}
+            className="flex items-center justify-center gap-5 cursor-pointer group"
+          >
+            {tenant.logo ? (
+              <img src={tenant.logo} alt="Logo" className="w-16 h-16 rounded-2xl object-cover border border-white/10 group-hover:scale-110 transition-all shadow-[0_0_30px_rgba(0,0,0,0.4)]" />
+            ) : (
+              <svg className="w-14 h-14 transition-all group-hover:scale-110 drop-shadow-[0_0_15px_rgba(16,185,129,0.3)]" style={{ color: tenant.primaryColor }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            )}
+            <h1 className="text-5xl font-black tracking-tighter text-white uppercase">{tenant.name}</h1>
+          </div>
+          <p className="text-slate-500 text-[11px] uppercase font-black tracking-[0.6em] ml-1">{tenant.region} Regional Enterprise Hub</p>
         </div>
-        <p className="text-slate-500 text-[10px] uppercase font-black tracking-[0.5em]">{tenant.region} Enterprise Hub</p>
       </header>
 
       {currentView === 'dashboard' ? (
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 animate-in fade-in duration-700">
           {/* Hero Section */}
-          <section className="glass rounded-[32px] p-10 flex flex-col items-center justify-center text-center overflow-hidden relative border-white/5 shadow-2xl">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] blur-[150px] pointer-events-none opacity-5" style={{ backgroundColor: tenant.primaryColor }}></div>
+          <section className="glass rounded-[40px] p-12 flex flex-col items-center justify-center text-center overflow-hidden relative border-white/5 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] blur-[180px] pointer-events-none opacity-5" style={{ backgroundColor: tenant.primaryColor }}></div>
             <div className="relative z-10 w-full flex flex-col items-center">
-               <div className="flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full border" style={{ color: tenant.primaryColor, borderColor: `${tenant.primaryColor}22`, backgroundColor: `${tenant.primaryColor}08` }}>
-                  <span className="text-[10px] font-black uppercase tracking-widest">Global Margin Recovery Sync</span>
+               <div className="flex items-center gap-3 mb-8 px-5 py-2 rounded-full border shadow-lg" style={{ color: tenant.primaryColor, borderColor: `${tenant.primaryColor}33`, backgroundColor: `${tenant.primaryColor}08` }}>
+                  <span className="text-xs font-black uppercase tracking-[0.4em]">Global Ledger Synchronization</span>
                </div>
-               <div className="text-[80px] md:text-[120px] font-black text-white mono mb-6 tracking-tighter leading-none" style={{ textShadow: `0 0 40px ${tenant.primaryColor}22` }}>
+               <div className="text-[100px] md:text-[140px] font-black text-white mono mb-8 tracking-tighter leading-none" style={{ textShadow: `0 0 60px ${tenant.primaryColor}22` }}>
                  ${totalRecovered.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                </div>
-               <div className="w-full h-[380px] mb-12">
+               <div className="w-full h-[400px] mb-12">
                  <MarginRecoveryChart data={history} accentColor={tenant.primaryColor} />
                </div>
                <TrafficTaxClock />
@@ -181,13 +186,13 @@ const App: React.FC = () => {
           {/* C-Suite Command Center Section */}
           <section className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8">
             <div className="xl:col-span-2">
-              <PredictiveMaintenance onSchedule={(id) => triggerSuccess(`Proactive Tech Dispatched for Unit #${id}. Failure prevented.`)} />
+              <PredictiveMaintenance onSchedule={(id) => triggerSuccess(`Proactive Response Initiated for Unit #${id}. Predictive Strike Successful.`)} />
             </div>
             <StormSurgePredictor />
             <TSSAGuardian />
           </section>
 
-          {/* New Management Row */}
+          {/* Management Row */}
           <section className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <GridEdgeArbitrage />
             <div className="lg:col-span-2">
@@ -197,15 +202,15 @@ const App: React.FC = () => {
 
           {/* Recovery Workspace */}
           <section>
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-10 h-10 bg-emerald-500/10 rounded-xl flex items-center justify-center border border-emerald-500/20">
-                <svg className="w-6 h-6 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="flex items-center gap-4 mb-10">
+              <div className="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center border border-emerald-500/20 shadow-lg">
+                <svg className="w-8 h-8 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
               </div>
-              <h2 className="text-2xl font-black uppercase tracking-tighter text-white">Recovery Workspace</h2>
+              <h2 className="text-3xl font-black uppercase tracking-tighter text-white">Recovery Workspace</h2>
             </div>
-            <AccountantReveal onReveal={() => triggerSuccess('Profit Secured: AI detected hidden margins in ServiceTitan drift.')} />
+            <AccountantReveal onReveal={() => triggerSuccess('Margin Injection Verified: AI scanned $4,200 in hidden ServiceTitan leakage.')} />
           </section>
 
           <section className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -214,18 +219,18 @@ const App: React.FC = () => {
           </section>
 
           <section>
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-10 h-10 bg-emerald-500/10 rounded-xl flex items-center justify-center border border-emerald-500/20">
-                <svg className="w-6 h-6 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="flex items-center gap-4 mb-10">
+              <div className="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center border border-emerald-500/20 shadow-lg">
+                <svg className="w-8 h-8 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <h2 className="text-2xl font-black uppercase tracking-tighter text-white">System Vital Signs</h2>
+              <h2 className="text-3xl font-black uppercase tracking-tighter text-white">System Vital Signs</h2>
             </div>
-            <VitalSignsGrid onSync={(unit) => triggerSuccess(`Synced ${unit} to Jobber. Service call automated.`)} />
+            <VitalSignsGrid onSync={(unit) => triggerSuccess(`Unit ${unit} Synchronized. Service Protocol Automated.`)} />
           </section>
 
-          <div className="pb-12">
+          <div className="pb-16">
             <TitanFeatures />
           </div>
         </main>
