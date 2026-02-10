@@ -6,6 +6,7 @@ import { VitalSignsGrid } from './components/VitalSignsGrid';
 import { RebateEngine } from './components/RebateEngine';
 import { TitanFeatures } from './components/TitanFeatures';
 import { NetZeroFooter } from './components/NetZeroFooter';
+import { GlobalFooter } from './components/GlobalFooter';
 import { SuccessModal } from './components/SuccessModal';
 import { MarginRecoveryChart } from './components/MarginRecoveryChart';
 
@@ -28,7 +29,6 @@ const App: React.FC = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [successMsg, setSuccessMsg] = useState('');
 
-  // Simulation: Randomly fluctuate connection status for realism
   useEffect(() => {
     const statusTimer = setInterval(() => {
       const rand = Math.random();
@@ -39,10 +39,8 @@ const App: React.FC = () => {
     return () => clearInterval(statusTimer);
   }, []);
 
-  // Increment total recovered and update history for real-time charting
   useEffect(() => {
     const timer = setInterval(() => {
-      // Only recover if not disconnected
       if (status === 'disconnected') return;
 
       setTotalRecovered(prev => {
@@ -51,7 +49,7 @@ const App: React.FC = () => {
         
         setHistory(h => {
           const updated = [...h, { time: nextTime, amount: nextValue }];
-          return updated.slice(-25); // Keep last 25 points for smooth visualization
+          return updated.slice(-25);
         });
         
         return nextValue;
@@ -81,44 +79,39 @@ const App: React.FC = () => {
   const statusConfig = getStatusConfig(status);
 
   return (
-    <div className="min-h-screen bg-[#050505] text-slate-100 pb-32">
+    <div className="min-h-screen bg-transparent text-slate-100">
       {/* Header */}
-      <header className="relative py-8 px-6 text-center">
-        {/* Status Indicator Pill */}
-        <div className="absolute top-8 right-6 hidden md:flex items-center gap-3 px-4 py-1.5 rounded-full glass border-white/5">
+      <header className="relative py-12 px-6 text-center">
+        <div className="absolute top-12 right-6 hidden md:flex items-center gap-3 px-4 py-1.5 rounded-full glass border-white/5">
           <div className={`w-2.5 h-2.5 rounded-full pulse-indicator ${statusConfig.color}`}></div>
           <span className="text-[10px] uppercase font-black tracking-widest text-slate-400">{statusConfig.text}</span>
         </div>
 
         <div className="flex items-center justify-center gap-2 mb-2">
-          <svg className="w-8 h-8 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-10 h-10 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>
-          <h1 className="text-3xl font-bold tracking-tight">Ambient Twin Enterprise</h1>
+          <h1 className="text-4xl font-black tracking-tighter">AMBIENT TWIN</h1>
         </div>
-        <p className="text-slate-400 text-sm uppercase tracking-[0.2em]">GTA HVAC Margin Recovery System</p>
+        <p className="text-slate-400 text-sm uppercase font-bold tracking-[0.4em]">GTA HVAC Enterprise Ledger</p>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 pb-24">
         
-        {/* Hero Section: Total Recovered, Real-time Chart & Live Traffic Tax */}
-        <section className="glass rounded-3xl p-10 flex flex-col items-center justify-center text-center overflow-hidden relative">
-          {/* Background subtle glow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-emerald-500/5 blur-[120px] pointer-events-none"></div>
+        {/* Hero Section */}
+        <section className="glass rounded-3xl p-10 flex flex-col items-center justify-center text-center overflow-hidden relative border-white/10 shadow-2xl">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald-500/10 blur-[150px] pointer-events-none"></div>
 
           <div className="relative z-10 w-full flex flex-col items-center">
-             <div className="flex items-center gap-2 text-emerald-500 mb-2">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span className="font-semibold tracking-wider">Total Recovered Capital</span>
+             <div className="flex items-center gap-2 text-emerald-400 mb-4 bg-emerald-500/10 px-4 py-1 rounded-full border border-emerald-500/20">
+                <span className="text-xs font-black uppercase tracking-widest">Global Margin Recovery</span>
              </div>
              
-             <div className="text-6xl md:text-8xl font-black text-emerald-400 glow-emerald mono mb-4">
+             <div className="text-7xl md:text-9xl font-black text-white glow-emerald mono mb-6 tracking-tighter">
                ${totalRecovered.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
              </div>
 
-             <div className="w-full h-[320px] mb-8">
+             <div className="w-full h-[360px] mb-10">
                <MarginRecoveryChart data={history} />
              </div>
 
@@ -126,38 +119,44 @@ const App: React.FC = () => {
           </div>
         </section>
 
-        {/* Core Engine: Accountant Reveal */}
-        <section>
-          <div className="flex items-center gap-2 mb-6">
-            <svg className="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-            </svg>
-            <h2 className="text-xl font-bold uppercase tracking-widest">Profit Recovery Sync</h2>
-          </div>
-          <AccountantReveal onReveal={() => triggerSuccess('Profit Secured: AI detected hidden margins in ServiceTitan drift.')} />
-        </section>
+        {/* Sync & Intelligence */}
+        <div className="grid grid-cols-1 gap-12">
+          <section>
+            <div className="flex items-center justify-between mb-8">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-emerald-500/10 rounded-xl flex items-center justify-center border border-emerald-500/20">
+                  <svg className="w-6 h-6 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                </div>
+                <h2 className="text-2xl font-black uppercase tracking-tighter">Recovery Workspace</h2>
+              </div>
+            </div>
+            <AccountantReveal onReveal={() => triggerSuccess('Profit Secured: AI detected hidden margins in ServiceTitan drift.')} />
+          </section>
 
-        {/* Technical System Intelligence */}
-        <section>
-          <div className="flex items-center gap-2 mb-6">
-            <svg className="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-            <h2 className="text-xl font-bold uppercase tracking-widest text-slate-100">Technical System Intelligence (TSI) Vital Signs</h2>
-          </div>
-          <VitalSignsGrid onSync={(unit) => triggerSuccess(`Synced ${unit} to Jobber. Service call automated.`)} />
-        </section>
+          <section>
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-10 h-10 bg-emerald-500/10 rounded-xl flex items-center justify-center border border-emerald-500/20">
+                <svg className="w-6 h-6 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h2 className="text-2xl font-black uppercase tracking-tighter">System Vital Signs</h2>
+            </div>
+            <VitalSignsGrid onSync={(unit) => triggerSuccess(`Synced ${unit} to Jobber. Service call automated.`)} />
+          </section>
+        </div>
 
-        {/* Rebate Engine & Titan Features */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        {/* Bottom Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 pb-12">
           <RebateEngine onClaim={handleBulkClaim} />
           <TitanFeatures />
         </div>
 
       </main>
 
-      <div className="pb-32"></div>
-
+      <GlobalFooter />
       <NetZeroFooter />
       
       {showSuccess && (
