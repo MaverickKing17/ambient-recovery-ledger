@@ -71,8 +71,94 @@ const App: React.FC = () => {
                      status === 'intermittent' ? { color: 'bg-amber-500', text: 'Intermittent Sync' } :
                      { color: 'bg-red-500', text: 'Connection Lost' };
 
+  const getLegalContent = (view: string) => {
+    switch(view) {
+      case 'privacy-policy':
+        return {
+          title: 'Privacy Policy & PIPEDA Compliance',
+          content: `
+            <div class="space-y-6 text-slate-300">
+              <p>Ambient Twin Inc. ("Ambient Twin") is committed to protecting the personal and commercial data of our users in the Greater Toronto Area (GTA). This policy outlines our adherence to the Personal Information Protection and Electronic Documents Act (PIPEDA).</p>
+              <h4 class="text-white font-bold">1. Data Collection & Synchronization</h4>
+              <p>We synchronize data from third-party HVAC platforms (e.g., ServiceTitan, Jobber). This includes customer addresses, unit serial numbers, and service history. We do not sell this data to third-party marketing entities.</p>
+              <h4 class="text-white font-bold">2. Data Residency</h4>
+              <p>Primary server clusters are located in Toronto and Montreal to ensure compliance with Canadian data residency requirements. All data "in transit" is encrypted using 256-bit TLS.</p>
+              <h4 class="text-white font-bold">3. AI Processing Disclosure</h4>
+              <p>Customer data is processed via anonymized tokens using the Gemini-3-Flash model to identify margin recovery opportunities. No personally identifiable information (PII) is used for training public models.</p>
+              <h4 class="text-white font-bold">4. Your Rights</h4>
+              <p>GTA HVAC Business owners may request a full data export or "Right to be Forgotten" via the Compliance Dashboard at any time.</p>
+            </div>
+          `
+        };
+      case 'terms-of-service':
+        return {
+          title: 'Master Service Agreement (ToS)',
+          content: `
+            <div class="space-y-6 text-slate-300">
+              <p>By accessing the Ambient Twin Enterprise Ledger, you agree to these terms as of January 2025.</p>
+              <h4 class="text-white font-bold">1. SaaS Subscription</h4>
+              <p>Ambient Twin provides a monthly subscription service billed at $1,499 CAD. Failure to maintain payment results in the immediate suspension of CRM sync and Carbon Arbitrage tracking.</p>
+              <h4 class="text-white font-bold">2. Technical Responsibility</h4>
+              <p>Ambient Twin is a decision-support tool. Final field decisions, TSSA certification compliance, and onsite safety remain the sole responsibility of the HVAC contractor.</p>
+              <h4 class="text-white font-bold">3. API Usage Limits</h4>
+              <p>Excessive polling of the ServiceTitan/Jobber sync engine (exceeding 1,000 requests/hour) may result in temporary rate-limiting to preserve grid stability.</p>
+              <h4 class="text-white font-bold">4. Termination</h4>
+              <p>Notice of cancellation must be provided 30 days prior to the billing cycle. Ambient Twin retains "Historical Margin Logs" for 12 months post-termination unless otherwise requested.</p>
+            </div>
+          `
+        };
+      case 'disclaimer':
+        return {
+          title: 'Legal Disclaimer',
+          content: `
+            <div class="space-y-6 text-slate-300">
+              <p>PLEASE READ THIS DISCLAIMER CAREFULLY BEFORE USING THE AMBIENT TWIN PLATFORM.</p>
+              <h4 class="text-white font-bold">1. No Professional Advice</h4>
+              <p>The "Margin Recovery Velocity" and "Rebate Projections" provided are estimates based on algorithmic analysis. They do not constitute accounting, legal, or professional engineering advice.</p>
+              <h4 class="text-white font-bold">2. Ontario Rebate Eligibility</h4>
+              <p>The $6,500 Rebate Engine identifies "qualified leads" based on standard Ontario HRS criteria. Actual rebate issuance is subject to the final audit by Enbridge or the relevant Ontario regulatory body.</p>
+              <h4 class="text-white font-bold">3. Traffic Tax Accuracy</h4>
+              <p>Traffic Tax calculations are based on live GTA traffic feeds (DVP, 401, QEW). While highly accurate, these are categorized as "Estimated Labor Leakage" and should be verified against actual GPS fleet logs.</p>
+            </div>
+          `
+        };
+      case 'dmca-policy':
+        return {
+          title: 'DMCA & Copyright Policy',
+          content: `
+            <div class="space-y-6 text-slate-300">
+              <p>Ambient Twin respects the intellectual property rights of others. This policy covers our procedures for responding to allegations of copyright infringement.</p>
+              <h4 class="text-white font-bold">1. Digital Twin Ownership</h4>
+              <p>All source code, UI/UX design components (e.g., "Accountant Reveal"), and proprietary HVAC algorithms are the exclusive property of Ambient Twin Inc.</p>
+              <h4 class="text-white font-bold">2. Reporting Infringement</h4>
+              <p>If you believe content on our platform infringes your copyright, please contact our Legal Hub at legal@ambienttwin.ca with a full description of the copyrighted work and the location of the allegedly infringing material.</p>
+            </div>
+          `
+        };
+      case 'cookie-policy':
+        return {
+          title: 'Cookie & Tracking Policy',
+          content: `
+            <div class="space-y-6 text-slate-300">
+              <p>We use essential "Enterprise Cookies" to maintain session integrity and CRM synchronization states.</p>
+              <h4 class="text-white font-bold">1. Essential Cookies</h4>
+              <p>Required for dashboard authentication and real-time ledger updates. Disabling these will render the Ambient Twin workspace inoperable.</p>
+              <h4 class="text-white font-bold">2. Performance Tracking</h4>
+              <p>We use local storage to cache GTA traffic data and rebate lead status for low-latency performance.</p>
+              <h4 class="text-white font-bold">3. No Advertising Cookies</h4>
+              <p>Ambient Twin does not use 3rd-party advertising tracking cookies. Your HVAC operations data is not used for retargeting.</p>
+            </div>
+          `
+        };
+      default:
+        return null;
+    }
+  };
+
   const renderSubPage = () => {
-    const pageTitle = currentView.replace(/-/g, ' ').toUpperCase();
+    const legal = getLegalContent(currentView);
+    const pageTitle = legal ? legal.title : currentView.replace(/-/g, ' ').toUpperCase();
+    
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
         <button 
@@ -89,46 +175,53 @@ const App: React.FC = () => {
           <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-emerald-500/5 blur-[100px] pointer-events-none"></div>
           
           <div className="relative z-10">
-            <h2 className="text-5xl font-black tracking-tighter mb-4">{pageTitle}</h2>
-            <p className="text-slate-400 max-w-2xl text-lg leading-relaxed mb-10">
-              Detailed analytical breakdown for {pageTitle.toLowerCase()}. Ambient Twin Enterprise provides real-time oversight and automated reconciliation for this sector.
-            </p>
+            <h2 className="text-4xl md:text-5xl font-black tracking-tighter mb-4 text-white uppercase">{pageTitle}</h2>
+            
+            {legal ? (
+              <div className="mt-12 prose prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: legal.content }} />
+            ) : (
+              <>
+                <p className="text-slate-400 max-w-2xl text-lg leading-relaxed mb-10">
+                  Detailed analytical breakdown for {pageTitle.toLowerCase()}. Ambient Twin Enterprise provides real-time oversight and automated reconciliation for this sector.
+                </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-              <div className="bg-slate-900/60 p-8 rounded-2xl border border-white/5">
-                <span className="text-[10px] uppercase font-black text-slate-500 tracking-widest block mb-2">Regional Index</span>
-                <div className="text-3xl font-black text-white">98.2</div>
-                <div className="text-xs text-emerald-400 mt-2 font-bold">+2.4% vs Prev. Quarter</div>
-              </div>
-              <div className="bg-slate-900/60 p-8 rounded-2xl border border-white/5">
-                <span className="text-[10px] uppercase font-black text-slate-500 tracking-widest block mb-2">System Health</span>
-                <div className="text-3xl font-black text-emerald-400">OPTIMIZED</div>
-                <div className="text-xs text-slate-500 mt-2 font-bold">Latency: 14ms</div>
-              </div>
-              <div className="bg-slate-900/60 p-8 rounded-2xl border border-white/5">
-                <span className="text-[10px] uppercase font-black text-slate-500 tracking-widest block mb-2">Market Volatility</span>
-                <div className="text-3xl font-black text-amber-500">LOW</div>
-                <div className="text-xs text-slate-500 mt-2 font-bold">GTA Stable Matrix</div>
-              </div>
-            </div>
-
-            <div className="bg-white/5 rounded-2xl p-8 border border-white/5">
-              <h4 className="text-xs font-black uppercase tracking-[0.3em] text-emerald-500 mb-6">Technical Ledger History</h4>
-              <div className="space-y-4">
-                {[1,2,3,4].map(i => (
-                  <div key={i} className="flex items-center justify-between py-4 border-b border-white/5 last:border-0">
-                    <div>
-                      <div className="text-sm font-bold">Automated Audit ID #2948-{i}</div>
-                      <div className="text-[10px] text-slate-500 uppercase tracking-wider">Verified by TSSA API Cluster</div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-sm font-black mono text-emerald-400">+$124.50</div>
-                      <div className="text-[10px] text-slate-500 uppercase">Synchronized</div>
-                    </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                  <div className="bg-slate-900/60 p-8 rounded-2xl border border-white/5">
+                    <span className="text-[10px] uppercase font-black text-slate-500 tracking-widest block mb-2">Regional Index</span>
+                    <div className="text-3xl font-black text-white">98.2</div>
+                    <div className="text-xs text-emerald-400 mt-2 font-bold">+2.4% vs Prev. Quarter</div>
                   </div>
-                ))}
-              </div>
-            </div>
+                  <div className="bg-slate-900/60 p-8 rounded-2xl border border-white/5">
+                    <span className="text-[10px] uppercase font-black text-slate-500 tracking-widest block mb-2">System Health</span>
+                    <div className="text-3xl font-black text-emerald-400">OPTIMIZED</div>
+                    <div className="text-xs text-slate-500 mt-2 font-bold">Latency: 14ms</div>
+                  </div>
+                  <div className="bg-slate-900/60 p-8 rounded-2xl border border-white/5">
+                    <span className="text-[10px] uppercase font-black text-slate-500 tracking-widest block mb-2">Market Volatility</span>
+                    <div className="text-3xl font-black text-amber-500">LOW</div>
+                    <div className="text-xs text-slate-500 mt-2 font-bold">GTA Stable Matrix</div>
+                  </div>
+                </div>
+
+                <div className="bg-white/5 rounded-2xl p-8 border border-white/5">
+                  <h4 className="text-xs font-black uppercase tracking-[0.3em] text-emerald-500 mb-6">Technical Ledger History</h4>
+                  <div className="space-y-4">
+                    {[1,2,3,4].map(i => (
+                      <div key={i} className="flex items-center justify-between py-4 border-b border-white/5 last:border-0">
+                        <div>
+                          <div className="text-sm font-bold">Automated Audit ID #2948-{i}</div>
+                          <div className="text-[10px] text-slate-500 uppercase tracking-wider">Verified by TSSA API Cluster</div>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-sm font-black mono text-emerald-400">+$124.50</div>
+                          <div className="text-[10px] text-slate-500 uppercase">Synchronized</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
