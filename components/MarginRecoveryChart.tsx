@@ -69,4 +69,18 @@ export const MarginRecoveryChart: React.FC<Props> = ({ data }) => {
           <Area
             type="monotone"
             dataKey="amount"
-            stroke="#1
+            stroke="#10b981"
+            strokeWidth={3}
+            fillOpacity={1}
+            fill="url(#colorAmount)"
+            animationDuration={800}
+            isAnimationActive={true}
+          />
+        </AreaChart>
+      </ResponsiveContainer>
+
+      {/* Grid Floor Line */}
+      <div className="absolute bottom-0 left-0 w-full h-[1px] bg-white/5"></div>
+    </div>
+  );
+};

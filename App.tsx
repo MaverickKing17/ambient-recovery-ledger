@@ -9,8 +9,11 @@ import { NetZeroFooter } from './components/NetZeroFooter';
 import { SuccessModal } from './components/SuccessModal';
 import { MarginRecoveryChart } from './components/MarginRecoveryChart';
 
+type ConnectionStatus = 'connected' | 'intermittent' | 'disconnected';
+
 const App: React.FC = () => {
   const [totalRecovered, setTotalRecovered] = useState(22450.00);
+  const [status, setStatus] = useState<ConnectionStatus>('connected');
   const [history, setHistory] = useState<{ time: string; amount: number }[]>(() => {
     const initial = [];
     const now = Date.now();
@@ -25,9 +28,23 @@ const App: React.FC = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [successMsg, setSuccessMsg] = useState('');
 
+  // Simulation: Randomly fluctuate connection status for realism
+  useEffect(() => {
+    const statusTimer = setInterval(() => {
+      const rand = Math.random();
+      if (rand > 0.95) setStatus('disconnected');
+      else if (rand > 0.85) setStatus('intermittent');
+      else setStatus('connected');
+    }, 12000);
+    return () => clearInterval(statusTimer);
+  }, []);
+
   // Increment total recovered and update history for real-time charting
   useEffect(() => {
     const timer = setInterval(() => {
+      // Only recover if not disconnected
+      if (status === 'disconnected') return;
+
       setTotalRecovered(prev => {
         const nextValue = prev + 0.05;
         const nextTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
@@ -41,17 +58,38 @@ const App: React.FC = () => {
       });
     }, 5000);
     return () => clearInterval(timer);
-  }, []);
+  }, [status]);
 
   const triggerSuccess = (msg: string) => {
     setSuccessMsg(msg);
     setShowSuccess(true);
   };
 
+  const handleBulkClaim = (ids: string[]) => {
+    const totalRevenue = ids.length * 6500;
+    triggerSuccess(`Profit Secured: $${totalRevenue.toLocaleString()} Revenue Injected from ${ids.length} leads. Unbillable Truck Rolls Prevented.`);
+  };
+
+  const getStatusConfig = (s: ConnectionStatus) => {
+    switch (s) {
+      case 'connected': return { color: 'bg-emerald-500', text: 'Live Feed Connected' };
+      case 'intermittent': return { color: 'bg-amber-500', text: 'Intermittent Sync' };
+      case 'disconnected': return { color: 'bg-red-500', text: 'Connection Lost' };
+    }
+  };
+
+  const statusConfig = getStatusConfig(status);
+
   return (
     <div className="min-h-screen bg-[#050505] text-slate-100 pb-32">
       {/* Header */}
-      <header className="py-8 px-6 text-center">
+      <header className="relative py-8 px-6 text-center">
+        {/* Status Indicator Pill */}
+        <div className="absolute top-8 right-6 hidden md:flex items-center gap-3 px-4 py-1.5 rounded-full glass border-white/5">
+          <div className={`w-2.5 h-2.5 rounded-full pulse-indicator ${statusConfig.color}`}></div>
+          <span className="text-[10px] uppercase font-black tracking-widest text-slate-400">{statusConfig.text}</span>
+        </div>
+
         <div className="flex items-center justify-center gap-2 mb-2">
           <svg className="w-8 h-8 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -112,11 +150,13 @@ const App: React.FC = () => {
 
         {/* Rebate Engine & Titan Features */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-          <RebateEngine onClaim={() => triggerSuccess('Profit Secured: $6,500 Revenue Injected. Unbillable Truck Roll Prevented.')} />
+          <RebateEngine onClaim={handleBulkClaim} />
           <TitanFeatures />
         </div>
 
       </main>
+
+      <div className="pb-32"></div>
 
       <NetZeroFooter />
       
