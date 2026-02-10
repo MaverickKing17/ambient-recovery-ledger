@@ -72,81 +72,110 @@ const App: React.FC = () => {
                      { color: 'bg-red-500', text: 'Connection Lost' };
 
   const getLegalContent = (view: string) => {
+    const lastUpdated = "Last Updated: January 15, 2025";
     switch(view) {
       case 'privacy-policy':
         return {
           title: 'Privacy Policy & PIPEDA Compliance',
           content: `
-            <div class="space-y-6 text-slate-300">
-              <p>Ambient Twin Inc. ("Ambient Twin") is committed to protecting the personal and commercial data of our users in the Greater Toronto Area (GTA). This policy outlines our adherence to the Personal Information Protection and Electronic Documents Act (PIPEDA).</p>
-              <h4 class="text-white font-bold">1. Data Collection & Synchronization</h4>
-              <p>We synchronize data from third-party HVAC platforms (e.g., ServiceTitan, Jobber). This includes customer addresses, unit serial numbers, and service history. We do not sell this data to third-party marketing entities.</p>
-              <h4 class="text-white font-bold">2. Data Residency</h4>
-              <p>Primary server clusters are located in Toronto and Montreal to ensure compliance with Canadian data residency requirements. All data "in transit" is encrypted using 256-bit TLS.</p>
-              <h4 class="text-white font-bold">3. AI Processing Disclosure</h4>
-              <p>Customer data is processed via anonymized tokens using the Gemini-3-Flash model to identify margin recovery opportunities. No personally identifiable information (PII) is used for training public models.</p>
-              <h4 class="text-white font-bold">4. Your Rights</h4>
-              <p>GTA HVAC Business owners may request a full data export or "Right to be Forgotten" via the Compliance Dashboard at any time.</p>
+            <div class="space-y-8 text-slate-300">
+              <p class="text-xs text-slate-500 font-bold uppercase tracking-widest">${lastUpdated}</p>
+              <section class="space-y-4">
+                <h4 class="text-white font-black text-xl uppercase tracking-tighter">1. Data Governance Architecture</h4>
+                <p>Ambient Twin Inc. ("Ambient Twin") operates as a secure data intermediary for high-volume HVAC enterprises. We strictly adhere to the Personal Information Protection and Electronic Documents Act (PIPEDA) and Ontario’s provincial privacy standards.</p>
+              </section>
+              <section class="space-y-4">
+                <h4 class="text-white font-black text-xl uppercase tracking-tighter">2. CRM & Field Data Synchronization</h4>
+                <p>To provide real-time margin recovery, we synchronize with third-party platforms (ServiceTitan, Jobber, Housecall Pro). Data points collected include customer geolocation, HVAC unit telemetry, and service-call timestamping. This data is used exclusively for profit auditing and is never shared with external advertisers.</p>
+              </section>
+              <section class="space-y-4">
+                <h4 class="text-white font-black text-xl uppercase tracking-tighter">3. Data Residency & Sovereignty</h4>
+                <p>Primary data processing occurs within ISO 27001 certified server clusters located in Toronto, Ontario. We ensure that commercial operational data remains within Canadian jurisdiction to comply with domestic data sovereignty requirements.</p>
+              </section>
+              <section class="space-y-4">
+                <h4 class="text-white font-black text-xl uppercase tracking-tighter">4. AI Tokenization & Anonymization</h4>
+                <p>Our "Ambient AI" models use localized tokenization to analyze profitability drift. No personally identifiable information (PII) of your end-customers is utilized to train public Large Language Models (LLMs).</p>
+              </section>
             </div>
           `
         };
       case 'terms-of-service':
         return {
-          title: 'Master Service Agreement (ToS)',
+          title: 'Master Service Agreement',
           content: `
-            <div class="space-y-6 text-slate-300">
-              <p>By accessing the Ambient Twin Enterprise Ledger, you agree to these terms as of January 2025.</p>
-              <h4 class="text-white font-bold">1. SaaS Subscription</h4>
-              <p>Ambient Twin provides a monthly subscription service billed at $1,499 CAD. Failure to maintain payment results in the immediate suspension of CRM sync and Carbon Arbitrage tracking.</p>
-              <h4 class="text-white font-bold">2. Technical Responsibility</h4>
-              <p>Ambient Twin is a decision-support tool. Final field decisions, TSSA certification compliance, and onsite safety remain the sole responsibility of the HVAC contractor.</p>
-              <h4 class="text-white font-bold">3. API Usage Limits</h4>
-              <p>Excessive polling of the ServiceTitan/Jobber sync engine (exceeding 1,000 requests/hour) may result in temporary rate-limiting to preserve grid stability.</p>
-              <h4 class="text-white font-bold">4. Termination</h4>
-              <p>Notice of cancellation must be provided 30 days prior to the billing cycle. Ambient Twin retains "Historical Margin Logs" for 12 months post-termination unless otherwise requested.</p>
+            <div class="space-y-8 text-slate-300">
+              <p class="text-xs text-slate-500 font-bold uppercase tracking-widest">${lastUpdated}</p>
+              <section class="space-y-4">
+                <h4 class="text-white font-black text-xl uppercase tracking-tighter">1. Subscription Tiers & Access</h4>
+                <p>Access to the Ambient Twin Enterprise Ledger is provided on a monthly subscription basis ($1,499 CAD/mo). Continued access is contingent upon active sync with a verified ServiceTitan or Jobber environment.</p>
+              </section>
+              <section class="space-y-4">
+                <h4 class="text-white font-black text-xl uppercase tracking-tighter">2. Service Level Agreement (SLA)</h4>
+                <p>Ambient Twin guarantees a 99.9% uptime for the Margin Recovery Sync engine. Scheduled maintenance for GTA traffic API clusters is performed during low-traffic windows (2:00 AM - 4:00 AM EST).</p>
+              </section>
+              <section class="space-y-4">
+                <h4 class="text-white font-black text-xl uppercase tracking-tighter">3. Force Majeure: Extreme Weather</h4>
+                <p>Given the nature of the HVAC industry in Ontario, Ambient Twin is not liable for data sync delays caused by extreme weather events (ice storms, grid-wide power failures) that impact local telecom infrastructure.</p>
+              </section>
+              <section class="space-y-4">
+                <h4 class="text-white font-black text-xl uppercase tracking-tighter">4. Professional Liability</h4>
+                <p>Ambient Twin is a decision-support software. It does not replace the requirement for TSSA-certified technicians to perform physical inspections. Any field action taken based on software "Vital Signs" must be validated by a licensed technician.</p>
+              </section>
             </div>
           `
         };
       case 'disclaimer':
         return {
-          title: 'Legal Disclaimer',
+          title: 'Legal & Regulatory Disclaimer',
           content: `
-            <div class="space-y-6 text-slate-300">
-              <p>PLEASE READ THIS DISCLAIMER CAREFULLY BEFORE USING THE AMBIENT TWIN PLATFORM.</p>
-              <h4 class="text-white font-bold">1. No Professional Advice</h4>
-              <p>The "Margin Recovery Velocity" and "Rebate Projections" provided are estimates based on algorithmic analysis. They do not constitute accounting, legal, or professional engineering advice.</p>
-              <h4 class="text-white font-bold">2. Ontario Rebate Eligibility</h4>
-              <p>The $6,500 Rebate Engine identifies "qualified leads" based on standard Ontario HRS criteria. Actual rebate issuance is subject to the final audit by Enbridge or the relevant Ontario regulatory body.</p>
-              <h4 class="text-white font-bold">3. Traffic Tax Accuracy</h4>
-              <p>Traffic Tax calculations are based on live GTA traffic feeds (DVP, 401, QEW). While highly accurate, these are categorized as "Estimated Labor Leakage" and should be verified against actual GPS fleet logs.</p>
+            <div class="space-y-8 text-slate-300">
+              <p class="text-xs text-slate-500 font-bold uppercase tracking-widest">${lastUpdated}</p>
+              <div class="p-6 bg-amber-500/10 border border-amber-500/30 rounded-2xl">
+                <h4 class="text-amber-400 font-black uppercase tracking-widest text-sm mb-2">Notice to Enterprise HVAC Owners</h4>
+                <p class="text-sm">The financial projections and "Recoverable Margin" figures displayed are algorithmic estimates based on historical operational drift. Actual recovery may vary based on market volatility and internal shop management.</p>
+              </div>
+              <section class="space-y-4">
+                <h4 class="text-white font-black text-xl uppercase tracking-tighter">1. No Engineering Guarantee</h4>
+                <p>Calculations regarding "Heating Power" and "Efficiency Drift" are derived from CRM field notes and IoT telemetry. They do not constitute a formal mechanical engineering stamp or TSSA inspection certificate.</p>
+              </section>
+              <section class="space-y-4">
+                <h4 class="text-white font-black text-xl uppercase tracking-tighter">2. Rebate Eligibility Disclaimer</h4>
+                <p>While Ambient Twin identifies $6,500 Ontario HRS Rebate opportunities, final approval is dictated by third-party auditors (e.g., Enbridge, Natural Resources Canada). Ambient Twin is not a direct issuer of government rebates.</p>
+              </section>
             </div>
           `
         };
       case 'dmca-policy':
         return {
-          title: 'DMCA & Copyright Policy',
+          title: 'DMCA & Intellectual Property',
           content: `
-            <div class="space-y-6 text-slate-300">
-              <p>Ambient Twin respects the intellectual property rights of others. This policy covers our procedures for responding to allegations of copyright infringement.</p>
-              <h4 class="text-white font-bold">1. Digital Twin Ownership</h4>
-              <p>All source code, UI/UX design components (e.g., "Accountant Reveal"), and proprietary HVAC algorithms are the exclusive property of Ambient Twin Inc.</p>
-              <h4 class="text-white font-bold">2. Reporting Infringement</h4>
-              <p>If you believe content on our platform infringes your copyright, please contact our Legal Hub at legal@ambienttwin.ca with a full description of the copyrighted work and the location of the allegedly infringing material.</p>
+            <div class="space-y-8 text-slate-300">
+              <p class="text-xs text-slate-500 font-bold uppercase tracking-widest">${lastUpdated}</p>
+              <section class="space-y-4">
+                <h4 class="text-white font-black text-xl uppercase tracking-tighter">1. Proprietary Visual Logic</h4>
+                <p>The "Accountant Reveal" UI, "Traffic Tax" algorithm, and "Enterprise Ledger" dashboard architecture are protected intellectual property of Ambient Twin Inc. Unauthorized duplication of the UI code or visual elements is strictly prohibited.</p>
+              </section>
+              <section class="space-y-4">
+                <h4 class="text-white font-black text-xl uppercase tracking-tighter">2. Infringement Reporting</h4>
+                <p>DMCA notices should be sent to our Corporate Legal Counsel in Toronto at legal-ops@ambienttwin.ca. Please include a detailed description of the work claimed to be infringed.</p>
+              </section>
             </div>
           `
         };
       case 'cookie-policy':
         return {
-          title: 'Cookie & Tracking Policy',
+          title: 'Cookie & Session Tracking',
           content: `
-            <div class="space-y-6 text-slate-300">
-              <p>We use essential "Enterprise Cookies" to maintain session integrity and CRM synchronization states.</p>
-              <h4 class="text-white font-bold">1. Essential Cookies</h4>
-              <p>Required for dashboard authentication and real-time ledger updates. Disabling these will render the Ambient Twin workspace inoperable.</p>
-              <h4 class="text-white font-bold">2. Performance Tracking</h4>
-              <p>We use local storage to cache GTA traffic data and rebate lead status for low-latency performance.</p>
-              <h4 class="text-white font-bold">3. No Advertising Cookies</h4>
-              <p>Ambient Twin does not use 3rd-party advertising tracking cookies. Your HVAC operations data is not used for retargeting.</p>
+            <div class="space-y-8 text-slate-300">
+              <p class="text-xs text-slate-500 font-bold uppercase tracking-widest">${lastUpdated}</p>
+              <section class="space-y-4">
+                <h4 class="text-white font-black text-xl uppercase tracking-tighter">1. Essential Operations Cookies</h4>
+                <p>We use strictly necessary cookies to maintain your encrypted session with ServiceTitan and Jobber. These cookies prevent "Session Drift" and ensure your Margin Recovery ledger is updated in real-time.</p>
+              </section>
+              <section class="space-y-4">
+                <h4 class="text-white font-black text-xl uppercase tracking-tighter">2. Performance Caching</h4>
+                <p>Local storage is used to cache GTA traffic data points for 15 minutes to reduce latency during peak service hours. This does not involve cross-site tracking or advertising pixels.</p>
+              </section>
             </div>
           `
         };
@@ -229,7 +258,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-transparent text-slate-100">
+    <div className="min-h-screen bg-transparent text-slate-100 pb-32">
       {/* Header */}
       <header className="relative py-12 px-6 text-center">
         <div className="absolute top-12 right-6 hidden md:flex items-center gap-3 px-4 py-1.5 rounded-full glass border-white/5 cursor-pointer hover:border-white/20 transition-all" onClick={() => setCurrentView('dashboard')}>
@@ -247,7 +276,7 @@ const App: React.FC = () => {
       </header>
 
       {currentView === 'dashboard' ? (
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 pb-24 animate-in fade-in duration-700">
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 animate-in fade-in duration-700">
           {/* Hero Section */}
           <section className="glass rounded-3xl p-10 flex flex-col items-center justify-center text-center overflow-hidden relative border-white/10 shadow-2xl">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald-500/10 blur-[150px] pointer-events-none"></div>
@@ -273,7 +302,7 @@ const App: React.FC = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
               </div>
-              <h2 className="text-2xl font-black uppercase tracking-tighter">Recovery Workspace</h2>
+              <h2 className="text-2xl font-black uppercase tracking-tighter text-white">Recovery Workspace</h2>
             </div>
             <AccountantReveal onReveal={() => triggerSuccess('Profit Secured: AI detected hidden margins in ServiceTitan drift.')} />
           </section>
@@ -286,7 +315,7 @@ const App: React.FC = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <h2 className="text-2xl font-black uppercase tracking-tighter">System Vital Signs</h2>
+              <h2 className="text-2xl font-black uppercase tracking-tighter text-white">System Vital Signs</h2>
             </div>
             <VitalSignsGrid onSync={(unit) => triggerSuccess(`Synced ${unit} to Jobber. Service call automated.`)} />
           </section>
