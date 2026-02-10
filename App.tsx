@@ -11,6 +11,9 @@ import { GlobalFooter } from './components/GlobalFooter';
 import { SuccessModal } from './components/SuccessModal';
 import { AIChat } from './components/AIChat';
 import { MarginRecoveryChart } from './components/MarginRecoveryChart';
+import { GridEdgeArbitrage } from './components/GridEdgeArbitrage';
+import { StormSurgePredictor } from './components/StormSurgePredictor';
+import { TSSAGuardian } from './components/TSSAGuardian';
 
 type ConnectionStatus = 'connected' | 'intermittent' | 'disconnected';
 
@@ -271,7 +274,7 @@ const App: React.FC = () => {
           <svg className="w-10 h-10 text-emerald-500 transition-transform group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>
-          <h1 className="text-4xl font-black tracking-tighter">AMBIENT TWIN</h1>
+          <h1 className="text-4xl font-black tracking-tighter text-white">AMBIENT TWIN</h1>
         </div>
         <p className="text-slate-400 text-sm uppercase font-bold tracking-[0.4em]">GTA HVAC Enterprise Ledger</p>
       </header>
@@ -293,6 +296,13 @@ const App: React.FC = () => {
                </div>
                <TrafficTaxClock />
             </div>
+          </section>
+
+          {/* C-Suite Command Center Section */}
+          <section className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <GridEdgeArbitrage />
+            <StormSurgePredictor />
+            <TSSAGuardian />
           </section>
 
           {/* Recovery Workspace */}

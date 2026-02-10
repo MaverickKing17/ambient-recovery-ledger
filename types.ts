@@ -23,3 +23,16 @@ export interface AccountantStep {
   label: string;
   status: 'complete' | 'active' | 'pending';
 }
+
+export interface GridPeakData {
+  time: string;
+  load: number;
+  cost: number;
+}
+
+export interface TechCompliance {
+  name: string;
+  license: string;
+  expiry: string;
+  status: 'valid' | 'warning' | 'expired';
+}
