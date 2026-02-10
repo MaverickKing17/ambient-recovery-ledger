@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { BloombergTicker } from './components/BloombergTicker';
 import { TrafficTaxClock } from './components/TrafficTaxClock';
 import { AccountantReveal } from './components/AccountantReveal';
 import { VitalSignsGrid } from './components/VitalSignsGrid';
@@ -98,10 +99,6 @@ const App: React.FC = () => {
                 <h4 class="text-white font-black text-xl uppercase tracking-tighter">1. Data Governance Architecture</h4>
                 <p>${tenant.name} operates as a secure data intermediary for high-volume HVAC enterprises. We strictly adhere to the Personal Information Protection and Electronic Documents Act (PIPEDA) and Ontario’s provincial privacy standards.</p>
               </section>
-              <section class="space-y-4">
-                <h4 class="text-white font-black text-xl uppercase tracking-tighter">2. CRM & Field Data Synchronization</h4>
-                <p>To provide real-time margin recovery, we synchronize with third-party platforms (ServiceTitan, Jobber, Housecall Pro). Data points collected include customer geolocation, HVAC unit telemetry, and service-call timestamping.</p>
-              </section>
             </div>
           `
         };
@@ -115,10 +112,10 @@ const App: React.FC = () => {
     const pageTitle = legal ? legal.title : currentView.replace(/-/g, ' ').toUpperCase();
     
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 animate-in fade-in slide-in-from-bottom-4 duration-500">
         <button 
           onClick={() => setCurrentView('dashboard')}
-          className="flex items-center gap-2 font-bold uppercase tracking-widest text-xs mb-8 group"
+          className="flex items-center gap-2 font-bold uppercase tracking-widest text-[10px] mb-8 group"
           style={{ color: tenant.primaryColor }}
         >
           <svg className="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -139,8 +136,10 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-transparent text-slate-100 pb-32">
-      {/* Dynamic Brand Header */}
+    <div className="min-h-screen bg-transparent text-slate-100 pb-32 pt-10">
+      <BloombergTicker />
+      
+      {/* Header */}
       <header className="relative py-12 px-6 text-center">
         <div className="absolute top-12 right-6 hidden md:flex items-center gap-3 px-4 py-1.5 rounded-full glass border-white/5 cursor-pointer hover:border-white/20 transition-all" onClick={() => setCurrentView('dashboard')}>
           <div className={`w-2.5 h-2.5 rounded-full pulse-indicator ${statusConfig.color}`}></div>
@@ -157,29 +156,29 @@ const App: React.FC = () => {
           )}
           <h1 className="text-4xl font-black tracking-tighter text-white uppercase">{tenant.name}</h1>
         </div>
-        <p className="text-slate-400 text-sm uppercase font-bold tracking-[0.4em]">{tenant.region} Enterprise Ledger</p>
+        <p className="text-slate-500 text-[10px] uppercase font-black tracking-[0.5em]">{tenant.region} Enterprise Hub</p>
       </header>
 
       {currentView === 'dashboard' ? (
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 animate-in fade-in duration-700">
           {/* Hero Section */}
-          <section className="glass rounded-3xl p-10 flex flex-col items-center justify-center text-center overflow-hidden relative border-white/10 shadow-2xl">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] blur-[150px] pointer-events-none opacity-10" style={{ backgroundColor: tenant.primaryColor }}></div>
+          <section className="glass rounded-[32px] p-10 flex flex-col items-center justify-center text-center overflow-hidden relative border-white/5 shadow-2xl">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] blur-[150px] pointer-events-none opacity-5" style={{ backgroundColor: tenant.primaryColor }}></div>
             <div className="relative z-10 w-full flex flex-col items-center">
-               <div className="flex items-center gap-2 mb-4 px-4 py-1 rounded-full border" style={{ color: tenant.primaryColor, borderColor: `${tenant.primaryColor}33`, backgroundColor: `${tenant.primaryColor}11` }}>
-                  <span className="text-xs font-black uppercase tracking-widest">Global Margin Recovery</span>
+               <div className="flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full border" style={{ color: tenant.primaryColor, borderColor: `${tenant.primaryColor}22`, backgroundColor: `${tenant.primaryColor}08` }}>
+                  <span className="text-[10px] font-black uppercase tracking-widest">Global Margin Recovery Sync</span>
                </div>
-               <div className="text-7xl md:text-9xl font-black text-white mono mb-6 tracking-tighter" style={{ textShadow: `0 0 30px ${tenant.primaryColor}44` }}>
+               <div className="text-[80px] md:text-[120px] font-black text-white mono mb-6 tracking-tighter leading-none" style={{ textShadow: `0 0 40px ${tenant.primaryColor}22` }}>
                  ${totalRecovered.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                </div>
-               <div className="w-full h-[360px] mb-10">
+               <div className="w-full h-[380px] mb-12">
                  <MarginRecoveryChart data={history} accentColor={tenant.primaryColor} />
                </div>
                <TrafficTaxClock />
             </div>
           </section>
 
-          {/* C-Suite Command Center Section - Updated Grid */}
+          {/* C-Suite Command Center Section */}
           <section className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8">
             <div className="xl:col-span-2">
               <PredictiveMaintenance onSchedule={(id) => triggerSuccess(`Proactive Tech Dispatched for Unit #${id}. Failure prevented.`)} />
@@ -209,13 +208,11 @@ const App: React.FC = () => {
             <AccountantReveal onReveal={() => triggerSuccess('Profit Secured: AI detected hidden margins in ServiceTitan drift.')} />
           </section>
 
-          {/* AI Filing Hub */}
           <section className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <RebateEngine onClaim={handleBulkClaim} />
             <AutomatedRebateFiling onSuccess={(msg) => triggerSuccess(msg)} />
           </section>
 
-          {/* System Vital Signs */}
           <section>
             <div className="flex items-center gap-3 mb-8">
               <div className="w-10 h-10 bg-emerald-500/10 rounded-xl flex items-center justify-center border border-emerald-500/20">
@@ -228,7 +225,6 @@ const App: React.FC = () => {
             <VitalSignsGrid onSync={(unit) => triggerSuccess(`Synced ${unit} to Jobber. Service call automated.`)} />
           </section>
 
-          {/* Bottom Grid */}
           <div className="pb-12">
             <TitanFeatures />
           </div>

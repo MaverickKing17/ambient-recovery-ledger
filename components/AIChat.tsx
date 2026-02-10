@@ -26,7 +26,8 @@ export const AIChat: React.FC = () => {
     setIsTyping(true);
 
     try {
-      const ai = new GoogleGenAI({ apiKey: (process as any).env.API_KEY });
+      // Fix: Initialize GoogleGenAI with a configuration object containing the API key from process.env.API_KEY as per guidelines
+      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
         contents: userMessage,
