@@ -17,38 +17,30 @@ export const GlobalFooter: React.FC<Props> = ({ onNavigate }) => {
       {/* Decorative background element */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-sky-500/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 relative z-10">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-12 relative z-10">
         {/* Brand Column */}
         <div className="space-y-6">
           <div className="flex items-center gap-2 cursor-pointer" onClick={(e) => handleNav(e, 'dashboard')}>
             <svg className="w-8 h-8 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
-            <h3 className="text-2xl font-black tracking-tighter uppercase">Ambient Twin</h3>
+            <h3 className="text-2xl font-black tracking-tighter uppercase text-white">Ambient Twin</h3>
           </div>
           <p className="text-slate-500 text-sm leading-relaxed max-w-xs">
             Precision margin recovery for high-volume HVAC contractors across the Greater Toronto Area. 
             Real-time synchronization for Titan-class operations.
           </p>
-          <div className="flex items-center gap-4">
-            <div className="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center border border-white/5 hover:border-emerald-500/50 cursor-pointer transition-all">
-              <span className="text-[10px] font-black">X</span>
-            </div>
-            <div className="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center border border-white/5 hover:border-emerald-500/50 cursor-pointer transition-all">
-              <span className="text-[10px] font-black">LN</span>
-            </div>
-          </div>
         </div>
 
         {/* Product Column */}
         <div className="space-y-6">
           <h4 className="text-xs font-black uppercase tracking-[0.3em] text-emerald-500">Solutions</h4>
           <ul className="space-y-4">
-            <li><button onClick={(e) => handleNav(e, 'margin-recovery-ledger')} className="text-slate-400 hover:text-white transition-colors text-sm font-medium">Margin Recovery Ledger</button></li>
-            <li><button onClick={(e) => handleNav(e, 'technical-vital-signs')} className="text-slate-400 hover:text-white transition-colors text-sm font-medium">Technical Vital Signs</button></li>
-            <li><button onClick={(e) => handleNav(e, 'ontario-rebate-engine')} className="text-slate-400 hover:text-white transition-colors text-sm font-medium">Ontario Rebate Engine</button></li>
-            <li><button onClick={(e) => handleNav(e, 'carbon-arbitrage-sync')} className="text-slate-400 hover:text-white transition-colors text-sm font-medium">Carbon Arbitrage Sync</button></li>
-            <li><button onClick={(e) => handleNav(e, 'fleet-traffic-audit')} className="text-slate-400 hover:text-white transition-colors text-sm font-medium">Fleet Traffic Audit</button></li>
+            <li><button onClick={(e) => handleNav(e, 'margin-recovery-ledger')} className="text-slate-400 hover:text-white transition-colors text-sm font-medium text-left">Margin Recovery Ledger</button></li>
+            <li><button onClick={(e) => handleNav(e, 'technical-vital-signs')} className="text-slate-400 hover:text-white transition-colors text-sm font-medium text-left">Technical Vital Signs</button></li>
+            <li><button onClick={(e) => handleNav(e, 'ontario-rebate-engine')} className="text-slate-400 hover:text-white transition-colors text-sm font-medium text-left">Ontario Rebate Engine</button></li>
+            <li><button onClick={(e) => handleNav(e, 'carbon-arbitrage-sync')} className="text-slate-400 hover:text-white transition-colors text-sm font-medium text-left">Carbon Arbitrage Sync</button></li>
+            <li><button onClick={(e) => handleNav(e, 'fleet-traffic-audit')} className="text-slate-400 hover:text-white transition-colors text-sm font-medium text-left">Fleet Traffic Audit</button></li>
           </ul>
         </div>
 
@@ -56,29 +48,37 @@ export const GlobalFooter: React.FC<Props> = ({ onNavigate }) => {
         <div className="space-y-6">
           <h4 className="text-xs font-black uppercase tracking-[0.3em] text-sky-500">GTA Service Hubs</h4>
           <ul className="space-y-4">
-            <li><button onClick={(e) => handleNav(e, 'toronto-hub')} className="text-slate-400 hover:text-white transition-colors text-sm font-medium">Toronto (Downtown/East)</button></li>
-            <li><button onClick={(e) => handleNav(e, 'mississauga-hub')} className="text-slate-400 hover:text-white transition-colors text-sm font-medium">Mississauga (West Hub)</button></li>
-            <li><button onClick={(e) => handleNav(e, 'vaughan-hub')} className="text-slate-400 hover:text-white transition-colors text-sm font-medium">Vaughan (North HQ)</button></li>
-            <li><button onClick={(e) => handleNav(e, 'oakville-hub')} className="text-slate-400 hover:text-white transition-colors text-sm font-medium">Oakville & Burlington</button></li>
-            <li><button onClick={(e) => handleNav(e, 'markham-hub')} className="text-slate-400 hover:text-white transition-colors text-sm font-medium">Markham Digital Sync</button></li>
+            <li><button onClick={(e) => handleNav(e, 'toronto-hub')} className="text-slate-400 hover:text-white transition-colors text-sm font-medium text-left">Toronto Hub</button></li>
+            <li><button onClick={(e) => handleNav(e, 'mississauga-hub')} className="text-slate-400 hover:text-white transition-colors text-sm font-medium text-left">Mississauga Hub</button></li>
+            <li><button onClick={(e) => handleNav(e, 'vaughan-hub')} className="text-slate-400 hover:text-white transition-colors text-sm font-medium text-left">Vaughan HQ</button></li>
+            <li><button onClick={(e) => handleNav(e, 'oakville-hub')} className="text-slate-400 hover:text-white transition-colors text-sm font-medium text-left">Oakville & Burlington</button></li>
+            <li><button onClick={(e) => handleNav(e, 'markham-hub')} className="text-slate-400 hover:text-white transition-colors text-sm font-medium text-left">Markham Digital Sync</button></li>
           </ul>
         </div>
 
-        {/* Industry/Legal Column */}
+        {/* Legal Column */}
+        <div className="space-y-6">
+          <h4 className="text-xs font-black uppercase tracking-[0.3em] text-orange-500">Legal & Governance</h4>
+          <ul className="space-y-4">
+            <li><button onClick={(e) => handleNav(e, 'privacy-policy')} className="text-slate-400 hover:text-white transition-colors text-sm font-medium text-left">Privacy Policy</button></li>
+            <li><button onClick={(e) => handleNav(e, 'terms-of-service')} className="text-slate-400 hover:text-white transition-colors text-sm font-medium text-left">Terms of Service</button></li>
+            <li><button onClick={(e) => handleNav(e, 'disclaimer')} className="text-slate-400 hover:text-white transition-colors text-sm font-medium text-left">Legal Disclaimer</button></li>
+            <li><button onClick={(e) => handleNav(e, 'dmca-policy')} className="text-slate-400 hover:text-white transition-colors text-sm font-medium text-left">DMCA Policy</button></li>
+            <li><button onClick={(e) => handleNav(e, 'cookie-policy')} className="text-slate-400 hover:text-white transition-colors text-sm font-medium text-left">Cookie Policy</button></li>
+          </ul>
+        </div>
+
+        {/* Compliance Column */}
         <div className="space-y-6">
           <h4 className="text-xs font-black uppercase tracking-[0.3em] text-slate-400">Compliance & Trust</h4>
           <ul className="space-y-4">
             <li className="flex items-center gap-2 group cursor-pointer" onClick={(e) => handleNav(e, 'tssa-compliance')}>
               <div className="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
-              <span className="text-slate-400 group-hover:text-white transition-colors text-sm font-medium">TSSA Certified Data Integration</span>
+              <span className="text-slate-400 group-hover:text-white transition-colors text-sm font-medium">TSSA Certified Data</span>
             </li>
             <li className="flex items-center gap-2 group cursor-pointer" onClick={(e) => handleNav(e, 'ontario-hrs-audit')}>
               <div className="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
-              <span className="text-slate-400 group-hover:text-white transition-colors text-sm font-medium">Ontario HRS Rebate Audited</span>
-            </li>
-            <li className="flex items-center gap-2 group cursor-pointer" onClick={(e) => handleNav(e, 'privacy-policy')}>
-              <div className="w-1.5 h-1.5 rounded-full bg-sky-500"></div>
-              <span className="text-slate-400 group-hover:text-white transition-colors text-sm font-medium">Privacy Policy (PIPEDIA)</span>
+              <span className="text-slate-400 group-hover:text-white transition-colors text-sm font-medium">Ontario HRS Audited</span>
             </li>
             <li className="flex items-center gap-2 group cursor-pointer" onClick={(e) => handleNav(e, 'soc2-managed')}>
               <div className="w-1.5 h-1.5 rounded-full bg-slate-600"></div>
