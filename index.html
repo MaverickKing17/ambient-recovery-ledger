@@ -10,7 +10,7 @@
       /* Force Segoe UI globally as the primary Microsoft-style font */
       body {
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #0b0f1a;
+        background-color: #121826; /* Lighter, more professional slate-navy */
         color: #f8fafc;
         margin: 0;
         overflow-x: hidden;
@@ -24,9 +24,9 @@
       }
 
       .glass {
-        background: rgba(15, 23, 42, 0.6);
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        background: rgba(30, 41, 59, 0.45); /* Adjusted for lighter background */
+        backdrop-filter: blur(24px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
       }
 
       .glow-emerald {
@@ -50,10 +50,11 @@
         width: 100%;
         height: 100%;
         z-index: -1;
-        background-color: #0b0f1a;
+        background-color: #121826;
         background-image: 
-          radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.03) 0px, transparent 50%),
-          radial-gradient(at 100% 0%, rgba(14, 165, 233, 0.03) 0px, transparent 50%);
+          radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.05) 0px, transparent 50%),
+          radial-gradient(at 100% 0%, rgba(14, 165, 233, 0.05) 0px, transparent 50%),
+          radial-gradient(at 50% 100%, rgba(15, 23, 42, 0.3) 0px, transparent 50%);
       }
 
       /* Windows-style scrollbar */
@@ -62,11 +63,11 @@
         height: 10px;
       }
       ::-webkit-scrollbar-track {
-        background: #0b0f1a;
+        background: #121826;
       }
       ::-webkit-scrollbar-thumb {
         background: #334155;
-        border: 2px solid #0b0f1a;
+        border: 2px solid #121826;
         border-radius: 10px;
       }
       ::-webkit-scrollbar-thumb:hover {

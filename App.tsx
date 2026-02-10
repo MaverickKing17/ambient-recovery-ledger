@@ -136,14 +136,14 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-transparent text-slate-100 pb-32 pt-16">
+    <div className="min-h-screen bg-transparent text-slate-200 pb-32 pt-16">
       <BloombergTicker />
       
       {/* Header */}
       <header className="relative py-14 px-6 text-center">
         <div className="absolute top-14 right-6 hidden md:flex items-center gap-3 px-5 py-2 rounded-full glass border-white/10 cursor-pointer hover:border-white/20 transition-all shadow-xl" onClick={() => setCurrentView('dashboard')}>
           <div className={`w-3 h-3 rounded-full pulse-indicator ${statusConfig.color}`}></div>
-          <span className="text-[11px] uppercase font-bold tracking-[0.2em] text-slate-300">{statusConfig.text}</span>
+          <span className="text-[11px] uppercase font-bold tracking-[0.2em] text-slate-400">{statusConfig.text}</span>
         </div>
 
         <div className="flex flex-col items-center justify-center gap-6 mb-2">
@@ -160,20 +160,20 @@ const App: React.FC = () => {
             )}
             <h1 className="text-5xl font-extrabold tracking-tighter text-white uppercase">{tenant.name}</h1>
           </div>
-          <p className="text-slate-500 text-[11px] uppercase font-bold tracking-[0.6em] ml-1">{tenant.region} Regional Enterprise Hub</p>
+          <p className="text-slate-400 text-[11px] uppercase font-bold tracking-[0.6em] ml-1">{tenant.region} Regional Enterprise Hub</p>
         </div>
       </header>
 
       {currentView === 'dashboard' ? (
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 animate-in fade-in duration-700">
           {/* Hero Section */}
-          <section className="glass rounded-[40px] p-12 flex flex-col items-center justify-center text-center overflow-hidden relative border-white/5 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] blur-[180px] pointer-events-none opacity-5" style={{ backgroundColor: tenant.primaryColor }}></div>
+          <section className="glass rounded-[40px] p-12 flex flex-col items-center justify-center text-center overflow-hidden relative border-white/5 shadow-[0_20px_50px_rgba(0,0,0,0.3)]">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] blur-[180px] pointer-events-none opacity-10" style={{ backgroundColor: tenant.primaryColor }}></div>
             <div className="relative z-10 w-full flex flex-col items-center">
-               <div className="flex items-center gap-3 mb-8 px-5 py-2 rounded-full border shadow-lg" style={{ color: tenant.primaryColor, borderColor: `${tenant.primaryColor}33`, backgroundColor: `${tenant.primaryColor}08` }}>
+               <div className="flex items-center gap-3 mb-8 px-5 py-2 rounded-full border shadow-lg" style={{ color: tenant.primaryColor, borderColor: `${tenant.primaryColor}33`, backgroundColor: `${tenant.primaryColor}10` }}>
                   <span className="text-xs font-bold uppercase tracking-[0.4em]">Global Ledger Synchronization</span>
                </div>
-               <div className="text-[100px] md:text-[140px] font-extrabold text-white mono mb-8 tracking-tighter leading-none" style={{ textShadow: `0 0 60px ${tenant.primaryColor}22` }}>
+               <div className="text-[100px] md:text-[140px] font-extrabold text-white mono mb-8 tracking-tighter leading-none" style={{ textShadow: `0 4px 60px ${tenant.primaryColor}33` }}>
                  ${totalRecovered.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                </div>
                <div className="w-full h-[400px] mb-12">
