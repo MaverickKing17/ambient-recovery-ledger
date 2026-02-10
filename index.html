@@ -6,36 +6,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ambient Twin Enterprise - GTA HVAC Margin Recovery</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
+      /* Force Segoe UI globally as the primary Microsoft-style font */
       body {
-        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         background-color: #0b0f1a;
         color: #f8fafc;
         margin: 0;
         overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
+      
+      /* Refined Microsoft-style Mono stack */
       .mono {
-        font-family: 'JetBrains Mono', monospace;
+        font-family: "Cascadia Code", "Segoe UI Mono", Consolas, "Courier New", monospace;
       }
+
       .glass {
         background: rgba(15, 23, 42, 0.6);
         backdrop-filter: blur(20px);
         border: 1px solid rgba(255, 255, 255, 0.05);
       }
+
       .glow-emerald {
         text-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
       }
+
       @keyframes marquee {
         0% { transform: translateX(0); }
         100% { transform: translateX(-50%); }
       }
+
       .animate-marquee {
         animation: marquee 40s linear infinite;
         white-space: nowrap;
       }
+
       .mesh-bg {
         position: fixed;
         top: 0;
@@ -48,22 +55,37 @@
           radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.03) 0px, transparent 50%),
           radial-gradient(at 100% 0%, rgba(14, 165, 233, 0.03) 0px, transparent 50%);
       }
-      /* Microsoft-style scrollbar */
+
+      /* Windows-style scrollbar */
       ::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
+        width: 10px;
+        height: 10px;
       }
       ::-webkit-scrollbar-track {
         background: #0b0f1a;
       }
       ::-webkit-scrollbar-thumb {
-        background: #1e293b;
-        border-radius: 4px;
+        background: #334155;
+        border: 2px solid #0b0f1a;
+        border-radius: 10px;
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: #334155;
+        background: #475569;
       }
     </style>
+    <script>
+      // Configure Tailwind to use the Microsoft font stack as the default 'sans'
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"Segoe UI"', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif'],
+              mono: ['"Cascadia Code"', '"Segoe UI Mono"', 'Consolas', 'monospace'],
+            },
+          },
+        },
+      };
+    </script>
     <script type="importmap">
     {
       "imports": {

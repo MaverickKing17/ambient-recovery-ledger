@@ -96,7 +96,7 @@ const App: React.FC = () => {
             <div class="space-y-8 text-slate-300">
               <p class="text-xs text-slate-500 font-bold uppercase tracking-widest">${lastUpdated}</p>
               <section class="space-y-4">
-                <h4 class="text-white font-black text-xl uppercase tracking-tighter">1. Data Governance Architecture</h4>
+                <h4 class="text-white font-bold text-xl uppercase tracking-tighter">1. Data Governance Architecture</h4>
                 <p>${tenant.name} operates as a secure data intermediary for high-volume HVAC enterprises. We strictly adhere to the Personal Information Protection and Electronic Documents Act (PIPEDA) and Ontario’s provincial privacy standards.</p>
               </section>
             </div>
@@ -127,7 +127,7 @@ const App: React.FC = () => {
         <div className="glass rounded-[32px] p-12 border border-white/10 relative overflow-hidden mb-12 shadow-2xl">
           <div className="absolute top-0 right-0 w-[400px] h-[400px] blur-[100px] pointer-events-none opacity-20" style={{ backgroundColor: tenant.primaryColor }}></div>
           <div className="relative z-10">
-            <h2 className="text-4xl md:text-5xl font-black tracking-tighter mb-4 text-white uppercase">{pageTitle}</h2>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tighter mb-4 text-white uppercase">{pageTitle}</h2>
             {legal && <div className="mt-12 prose prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: legal.content }} />}
           </div>
         </div>
@@ -136,14 +136,14 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-transparent text-slate-100 pb-32 pt-14">
+    <div className="min-h-screen bg-transparent text-slate-100 pb-32 pt-16">
       <BloombergTicker />
       
       {/* Header */}
       <header className="relative py-14 px-6 text-center">
         <div className="absolute top-14 right-6 hidden md:flex items-center gap-3 px-5 py-2 rounded-full glass border-white/10 cursor-pointer hover:border-white/20 transition-all shadow-xl" onClick={() => setCurrentView('dashboard')}>
           <div className={`w-3 h-3 rounded-full pulse-indicator ${statusConfig.color}`}></div>
-          <span className="text-[11px] uppercase font-black tracking-[0.2em] text-slate-300">{statusConfig.text}</span>
+          <span className="text-[11px] uppercase font-bold tracking-[0.2em] text-slate-300">{statusConfig.text}</span>
         </div>
 
         <div className="flex flex-col items-center justify-center gap-6 mb-2">
@@ -158,9 +158,9 @@ const App: React.FC = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
             )}
-            <h1 className="text-5xl font-black tracking-tighter text-white uppercase">{tenant.name}</h1>
+            <h1 className="text-5xl font-extrabold tracking-tighter text-white uppercase">{tenant.name}</h1>
           </div>
-          <p className="text-slate-500 text-[11px] uppercase font-black tracking-[0.6em] ml-1">{tenant.region} Regional Enterprise Hub</p>
+          <p className="text-slate-500 text-[11px] uppercase font-bold tracking-[0.6em] ml-1">{tenant.region} Regional Enterprise Hub</p>
         </div>
       </header>
 
@@ -171,9 +171,9 @@ const App: React.FC = () => {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] blur-[180px] pointer-events-none opacity-5" style={{ backgroundColor: tenant.primaryColor }}></div>
             <div className="relative z-10 w-full flex flex-col items-center">
                <div className="flex items-center gap-3 mb-8 px-5 py-2 rounded-full border shadow-lg" style={{ color: tenant.primaryColor, borderColor: `${tenant.primaryColor}33`, backgroundColor: `${tenant.primaryColor}08` }}>
-                  <span className="text-xs font-black uppercase tracking-[0.4em]">Global Ledger Synchronization</span>
+                  <span className="text-xs font-bold uppercase tracking-[0.4em]">Global Ledger Synchronization</span>
                </div>
-               <div className="text-[100px] md:text-[140px] font-black text-white mono mb-8 tracking-tighter leading-none" style={{ textShadow: `0 0 60px ${tenant.primaryColor}22` }}>
+               <div className="text-[100px] md:text-[140px] font-extrabold text-white mono mb-8 tracking-tighter leading-none" style={{ textShadow: `0 0 60px ${tenant.primaryColor}22` }}>
                  ${totalRecovered.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                </div>
                <div className="w-full h-[400px] mb-12">
@@ -208,7 +208,7 @@ const App: React.FC = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
               </div>
-              <h2 className="text-3xl font-black uppercase tracking-tighter text-white">Recovery Workspace</h2>
+              <h2 className="text-3xl font-bold uppercase tracking-tighter text-white">Recovery Workspace</h2>
             </div>
             <AccountantReveal onReveal={() => triggerSuccess('Margin Injection Verified: AI scanned $4,200 in hidden ServiceTitan leakage.')} />
           </section>
@@ -225,7 +225,7 @@ const App: React.FC = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <h2 className="text-3xl font-black uppercase tracking-tighter text-white">System Vital Signs</h2>
+              <h2 className="text-3xl font-bold uppercase tracking-tighter text-white">System Vital Signs</h2>
             </div>
             <VitalSignsGrid onSync={(unit) => triggerSuccess(`Unit ${unit} Synchronized. Service Protocol Automated.`)} />
           </section>
