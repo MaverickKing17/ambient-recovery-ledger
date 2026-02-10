@@ -4,6 +4,7 @@ import { TrafficTaxClock } from './components/TrafficTaxClock';
 import { AccountantReveal } from './components/AccountantReveal';
 import { VitalSignsGrid } from './components/VitalSignsGrid';
 import { RebateEngine } from './components/RebateEngine';
+import { AutomatedRebateFiling } from './components/AutomatedRebateFiling';
 import { TitanFeatures } from './components/TitanFeatures';
 import { NetZeroFooter } from './components/NetZeroFooter';
 import { GlobalFooter } from './components/GlobalFooter';
@@ -307,6 +308,12 @@ const App: React.FC = () => {
             <AccountantReveal onReveal={() => triggerSuccess('Profit Secured: AI detected hidden margins in ServiceTitan drift.')} />
           </section>
 
+          {/* AI Filing Hub */}
+          <section className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <RebateEngine onClaim={handleBulkClaim} />
+            <AutomatedRebateFiling onSuccess={(msg) => triggerSuccess(msg)} />
+          </section>
+
           {/* System Vital Signs */}
           <section>
             <div className="flex items-center gap-3 mb-8">
@@ -321,8 +328,7 @@ const App: React.FC = () => {
           </section>
 
           {/* Bottom Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 pb-12">
-            <RebateEngine onClaim={handleBulkClaim} />
+          <div className="pb-12">
             <TitanFeatures />
           </div>
         </main>
