@@ -36,21 +36,21 @@ export const RebateEngine: React.FC<Props> = ({ onClaim }) => {
   const handleClaim = () => {
     if (selectedIds.size === 0) return;
     onClaim(Array.from(selectedIds));
-    setSelectedIds(new Set()); // Clear selection after claim
+    setSelectedIds(new Set());
   };
 
   return (
-    <div className="glass rounded-2xl p-8 border border-white/10 flex flex-col h-full">
+    <div className="glass rounded-2xl p-8 border border-white/10 flex flex-col h-full shadow-xl">
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center gap-2">
           <svg className="w-6 h-6 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          <h2 className="text-xl font-bold uppercase tracking-widest">$6,500 Rebate Engine</h2>
+          <h2 className="text-xl font-black uppercase tracking-widest text-white">$6,500 REBATE ENGINE</h2>
         </div>
         <button 
           onClick={selectAll}
-          className="text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-emerald-400 transition-colors"
+          className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 hover:text-emerald-400 transition-colors"
         >
           {selectedIds.size === leads.length ? 'Deselect All' : 'Select All'}
         </button>
@@ -63,8 +63,8 @@ export const RebateEngine: React.FC<Props> = ({ onClaim }) => {
             <div 
               key={lead.id} 
               onClick={() => toggleLead(lead.id)}
-              className={`bg-slate-900/40 rounded-xl p-5 border cursor-pointer flex items-center gap-4 transition-all ${
-                isSelected ? 'border-emerald-500/50 bg-emerald-500/5 shadow-[0_0_15px_rgba(16,185,129,0.1)]' : 'border-white/5 hover:border-white/20'
+              className={`bg-slate-900/40 rounded-xl p-5 border cursor-pointer flex items-center gap-4 transition-all duration-300 ${
+                isSelected ? 'border-emerald-500/50 bg-emerald-500/10 shadow-[0_0_20px_rgba(16,185,129,0.1)]' : 'border-white/5 hover:border-white/20'
               }`}
             >
               <div className={`w-5 h-5 rounded border flex items-center justify-center transition-all ${
@@ -78,18 +78,23 @@ export const RebateEngine: React.FC<Props> = ({ onClaim }) => {
               </div>
 
               <div className="space-y-1 flex-1">
-                 <div className="flex items-center gap-2">
-                   <svg className="w-4 h-4 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                   </svg>
-                   <h5 className="font-bold">Unit #{lead.id} ({lead.location})</h5>
+                 <div className="flex items-center gap-3">
+                   <h5 className="font-black text-slate-100 tracking-tight">Unit #{lead.id} — {lead.location}</h5>
+                   {lead.status === 'Verified' && (
+                     <div className="flex items-center gap-1 bg-emerald-500 text-slate-950 text-[9px] font-black px-2 py-0.5 rounded uppercase tracking-widest shadow-[0_0_10px_rgba(16,185,129,0.4)]">
+                        <svg className="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d="M5 13l4 4L19 7" />
+                        </svg>
+                        Verified
+                     </div>
+                   )}
                  </div>
-                 <p className="text-xs text-slate-500 uppercase tracking-wider">{lead.reason}</p>
-                 <span className="text-xs text-emerald-400 font-bold block mt-1">Qualified for $6,500 Ontario HRS Rebate</span>
+                 <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">{lead.reason}</p>
+                 <span className="text-[10px] text-emerald-400 font-black block mt-1 uppercase tracking-widest">Qualified for Ontario HRS Credit</span>
               </div>
               
               <div className="text-right">
-                <span className="text-xs font-black mono text-emerald-400">$6,500</span>
+                <span className="text-sm font-black mono text-emerald-400">$6,500</span>
               </div>
             </div>
           );
@@ -100,7 +105,7 @@ export const RebateEngine: React.FC<Props> = ({ onClaim }) => {
         <button 
           onClick={handleClaim}
           disabled={selectedIds.size === 0}
-          className={`w-full py-4 rounded-xl font-bold text-sm uppercase tracking-widest transition-all ${
+          className={`w-full py-4 rounded-xl font-black text-sm uppercase tracking-widest transition-all ${
             selectedIds.size > 0 
               ? 'bg-emerald-500 hover:bg-emerald-400 text-slate-900 shadow-[0_0_20px_rgba(16,185,129,0.4)] active:scale-95' 
               : 'bg-slate-800 text-slate-500 cursor-not-allowed opacity-50'
@@ -112,11 +117,11 @@ export const RebateEngine: React.FC<Props> = ({ onClaim }) => {
         </button>
 
         <div className="mt-4 flex items-center justify-between">
-          <span className="text-[10px] text-slate-500 font-medium uppercase tracking-[0.2em]">Verified Carbon Eligibility 100%</span>
-          <div className="flex gap-1">
-            <div className="w-1 h-1 bg-emerald-500 rounded-full"></div>
-            <div className="w-1 h-1 bg-emerald-500 rounded-full"></div>
-            <div className="w-1 h-1 bg-emerald-500 rounded-full"></div>
+          <span className="text-[9px] text-slate-600 font-black uppercase tracking-[0.3em]">Audited by CleanTech Matrix</span>
+          <div className="flex gap-1.5">
+            <div className="w-1.5 h-1.5 bg-emerald-500/30 rounded-full"></div>
+            <div className="w-1.5 h-1.5 bg-emerald-500/60 rounded-full"></div>
+            <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full pulse-indicator"></div>
           </div>
         </div>
       </div>
