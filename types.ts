@@ -36,3 +36,19 @@ export interface TechCompliance {
   expiry: string;
   status: 'valid' | 'warning' | 'expired';
 }
+
+export interface TenantConfig {
+  name: string;
+  logo: string;
+  primaryColor: string;
+  region: string;
+}
+
+export interface PredictionNode {
+  unitId: string;
+  location: string;
+  failureRisk: number;
+  daysToFailure: number;
+  predictedIssue: string;
+  recommendation: string;
+}
