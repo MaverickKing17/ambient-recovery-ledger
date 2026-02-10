@@ -88,7 +88,7 @@ export const GlobalFooter: React.FC<Props> = ({ onNavigate }) => {
       </div>
 
       <div className="max-w-7xl mx-auto mt-24 pt-12 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6 opacity-40">
-        <span className="text-[10px] font-black uppercase tracking-[0.2em]">&copy; 2025 AMBIENT TWIN INC. TORONTO, CA. ALL RIGHTS RESERVED.</span>
+        <span className="text-[10px] font-black uppercase tracking-[0.2em]">&copy; 2026 Ambient Twin, Inc. All rights Reserved</span>
         <div className="flex gap-8">
            <span className="text-[10px] font-black uppercase tracking-widest">HRAI Member</span>
            <span className="text-[10px] font-black uppercase tracking-widest">CleanTech Council</span>

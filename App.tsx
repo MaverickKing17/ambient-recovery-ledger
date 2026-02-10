@@ -76,7 +76,7 @@ const App: React.FC = () => {
                      { color: 'bg-red-500', text: 'Connection Lost' };
 
   const getLegalContent = (view: string) => {
-    const lastUpdated = "Last Updated: January 15, 2025";
+    const lastUpdated = "Last Updated: January 15, 2026";
     switch(view) {
       case 'privacy-policy':
         return {
