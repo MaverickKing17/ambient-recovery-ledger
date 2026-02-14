@@ -17,19 +17,22 @@ export const AIChat: React.FC = () => {
     }
   }, [messages, isTyping]);
 
-  const handleSend = async () => {
-    if (!input.trim() || isTyping) return;
+  const handleSend = async (overrideInput?: string) => {
+    const messageToSend = typeof overrideInput === 'string' ? overrideInput : input.trim();
+    if (!messageToSend || isTyping) return;
 
-    const userMessage = input.trim();
-    setInput('');
-    setMessages(prev => [...prev, { role: 'user', text: userMessage }]);
+    if (typeof overrideInput !== 'string') {
+      setInput('');
+    }
+    
+    setMessages(prev => [...prev, { role: 'user', text: messageToSend }]);
     setIsTyping(true);
 
     try {
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
-        contents: userMessage,
+        contents: messageToSend,
         config: {
           systemInstruction: 'You are Ambient AI, an elite enterprise analyst for Toronto/GTA HVAC operators. Your expertise is centered on maximizing yield through advanced HVAC data analysis. You specialize in evaluating HVAC system efficiency, detecting irregular energy consumption patterns, and modeling Toronto climate data to optimize dispatch during weather surges. You provide actionable insights on Enbridge/HRS rebate eligibility criteria, TSSA regulatory compliance, and ServiceTitan/Jobber margin reconciliation. Your focus is reducing unbillable truck roll leakage on the 401/DVP/407 and increasing overall enterprise value. Tone: High-stakes, professional, and technical. Responses must be concise, authoritative, and relentlessly profit-focused.',
         },
@@ -43,6 +46,15 @@ export const AIChat: React.FC = () => {
     } finally {
       setIsTyping(false);
     }
+  };
+
+  const handleQuickAction = (label: string) => {
+    const promptMap: Record<string, string> = {
+      'Analyze Further': 'Perform a deep-dive technical analysis on that last point, specifically highlighting the EBITDA impact and potential margin recovery delta.',
+      'Explain Simply': 'Recap the previous technical explanation in layman terms suitable for a high-level strategic update to non-technical stakeholders.',
+      'Summarize': 'Generate a 3-bullet executive summary of our current analysis focusing on immediate profit-capture actions.'
+    };
+    handleSend(promptMap[label] || label);
   };
 
   return (
@@ -74,9 +86,9 @@ export const AIChat: React.FC = () => {
           </div>
 
           {/* Messages Area */}
-          <div ref={scrollRef} className="flex-1 overflow-y-auto p-6 space-y-4 scrollbar-hide">
+          <div ref={scrollRef} className="flex-1 overflow-y-auto p-6 space-y-6 scrollbar-hide">
             {messages.map((msg, i) => (
-              <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+              <div key={i} className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
                 <div className={`max-w-[85%] px-4 py-3 rounded-2xl text-xs font-medium leading-relaxed ${
                   msg.role === 'user' 
                     ? 'bg-slate-800 text-slate-100 border border-white/5' 
@@ -84,6 +96,21 @@ export const AIChat: React.FC = () => {
                 }`}>
                   {msg.text}
                 </div>
+                
+                {/* Quick Action Row - Only for the latest AI message */}
+                {msg.role === 'ai' && i === messages.length - 1 && !isTyping && (
+                  <div className="flex flex-wrap gap-2 mt-3 animate-in fade-in slide-in-from-top-2 duration-500">
+                    {['Analyze Further', 'Explain Simply', 'Summarize'].map((label) => (
+                      <button
+                        key={label}
+                        onClick={() => handleQuickAction(label)}
+                        className="px-3 py-1.5 rounded-xl bg-orange-500/5 border border-orange-500/10 text-[8px] font-black uppercase tracking-[0.2em] text-orange-400 hover:bg-orange-500/10 hover:border-orange-500/30 transition-all active:scale-95 shadow-sm"
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
             {isTyping && (
@@ -109,7 +136,7 @@ export const AIChat: React.FC = () => {
                 className="w-full bg-slate-800 border border-white/10 rounded-xl px-4 py-3 text-xs focus:outline-none focus:border-orange-500 transition-all text-slate-100 pr-12"
               />
               <button 
-                onClick={handleSend}
+                onClick={() => handleSend()}
                 disabled={!input.trim() || isTyping}
                 className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg bg-orange-500 text-white flex items-center justify-center hover:bg-orange-400 transition-colors disabled:opacity-50 disabled:bg-slate-700"
               >
