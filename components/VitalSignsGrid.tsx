@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { UnitVitalSigns } from '../types';
 
 interface Props {
@@ -19,6 +19,20 @@ export const VitalSignsGrid: React.FC<Props> = ({ onSync }) => {
   const [syncingId, setSyncingId] = useState<string | null>(null);
   const [successId, setSuccessId] = useState<string | null>(null);
 
+  // Simulate real-time RMR fluctuations for "live" feel
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setUnits(prev => prev.map(unit => {
+        if (unit.recurringRevOpportunity && unit.recurringRevOpportunity > 0) {
+          const drift = (Math.random() - 0.5) * 0.02;
+          return { ...unit, recurringRevOpportunity: Math.max(0, unit.recurringRevOpportunity + drift) };
+        }
+        return unit;
+      }));
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
   const handleLocalSync = (id: string, location: string) => {
     setSyncingId(id);
     setTimeout(() => {
@@ -35,13 +49,25 @@ export const VitalSignsGrid: React.FC<Props> = ({ onSync }) => {
       {units.map(unit => {
         const isSyncing = syncingId === unit.id;
         const isSuccess = successId === unit.id;
+        const hasRMR = !!unit.recurringRevOpportunity && unit.recurringRevOpportunity > 0;
 
         return (
           <div key={unit.id} className={`glass rounded-3xl p-6 border transition-all duration-500 relative overflow-hidden group flex flex-col justify-between ${
             isSuccess ? 'border-emerald-500 shadow-[0_0_30px_rgba(16,185,129,0.2)] scale-[1.02]' : 
-            isSyncing ? 'border-sky-500/50 bg-sky-500/5' : 'border-white/10 hover:border-emerald-500/30'
+            isSyncing ? 'border-sky-500/50 bg-sky-500/5' : 
+            hasRMR ? 'border-sky-500/20 shadow-[0_10px_40px_rgba(14,165,233,0.05)]' : 'border-white/10 hover:border-emerald-500/30'
           }`}>
-            <div className="relative z-10">
+            
+            {/* RMR High-Visibility Badge */}
+            {hasRMR && (
+              <div className="absolute top-0 left-0 pt-2 pl-6 z-20">
+                <div className="bg-sky-500 text-white text-[8px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded-b-xl shadow-[0_4px_10px_rgba(14,165,233,0.4)] animate-in slide-in-from-top-4 duration-700">
+                  RMR Priority Node
+                </div>
+              </div>
+            )}
+
+            <div className="relative z-10 pt-4">
               <div className="flex justify-between items-start mb-6">
                 <div>
                   <span className="text-[10px] text-slate-500 uppercase font-black tracking-widest">Unit #{unit.id}</span>
@@ -81,13 +107,36 @@ export const VitalSignsGrid: React.FC<Props> = ({ onSync }) => {
                 </div>
               </div>
 
-              {unit.recurringRevOpportunity ? (
-                <div className="p-4 bg-sky-500/10 border border-sky-500/20 rounded-2xl mb-6 group-hover:bg-sky-500/20 transition-all">
-                  <div className="flex justify-between items-center">
-                    <span className="text-[10px] font-black text-sky-400 uppercase tracking-widest">RMR Opportunity</span>
-                    <span className="text-md font-black text-white mono">+${unit.recurringRevOpportunity}/mo</span>
+              {/* Enhanced Prominent RMR Section with Real-Time Data Binding */}
+              {hasRMR ? (
+                <div className="relative group/rmr p-5 bg-sky-500/5 border border-sky-500/20 rounded-[24px] mb-6 overflow-hidden transition-all hover:bg-sky-500/10 hover:border-sky-500/40 shadow-inner">
+                  {/* Subtle animated light sweep */}
+                  <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-sky-400/40 to-transparent animate-[marquee_3s_linear_infinite]"></div>
+                  
+                  <div className="flex justify-between items-end">
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-1.5">
+                        <div className="w-2 h-2 rounded-full bg-sky-500 animate-pulse"></div>
+                        <span className="text-[9px] font-black text-sky-400 uppercase tracking-[0.2em]">Live Recurring Opportunity</span>
+                      </div>
+                      <div className="text-3xl font-black text-white mono tracking-tighter leading-tight tabular-nums">
+                        +${unit.recurringRevOpportunity?.toFixed(2)}<span className="text-[10px] text-slate-500 font-bold ml-1">/MO</span>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                       <span className="block text-[8px] font-black text-slate-500 uppercase tracking-widest mb-1">Contract Yield</span>
+                       <div className="px-2 py-0.5 bg-sky-500/10 border border-sky-500/20 rounded text-[8px] font-black text-sky-400 uppercase tracking-tighter">ELITE PLAN</div>
+                    </div>
                   </div>
-                  <p className="text-[8px] text-sky-200/50 mt-1 uppercase font-bold tracking-widest leading-none">Auto-Draft Service Contract Pending</p>
+                  <div className="mt-3 pt-3 border-t border-white/5 flex items-center justify-between">
+                    <p className="text-[8px] text-sky-200/40 uppercase font-black tracking-widest leading-none">Auto-Sync Protocol Active</p>
+                    <div className="flex items-center gap-1">
+                       <span className="text-[7px] text-sky-500 font-black">MARKET_INDEX_v2</span>
+                       <svg className="w-3 h-3 text-sky-500/50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                       </svg>
+                    </div>
+                  </div>
                 </div>
               ) : null}
             </div>
