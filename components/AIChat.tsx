@@ -26,13 +26,12 @@ export const AIChat: React.FC = () => {
     setIsTyping(true);
 
     try {
-      // Fix: Initialize GoogleGenAI with a configuration object containing the API key from process.env.API_KEY as per guidelines
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
         contents: userMessage,
         config: {
-          systemInstruction: 'You are Ambient AI, a high-end enterprise assistant for Toronto/GTA HVAC business owners. Your tone is professional, technical, and profit-oriented. You speak about ServiceTitan, Jobber, TSSA compliance, $6500 Ontario rebates, and avoiding truck roll leakage on the 401/DVP. Keep responses concise and focused on HVAC business optimization.',
+          systemInstruction: 'You are Ambient AI, an elite enterprise analyst for Toronto/GTA HVAC operators. Your expertise is centered on maximizing yield through advanced HVAC data analysis. You specialize in evaluating HVAC system efficiency, detecting irregular energy consumption patterns, and modeling Toronto climate data to optimize dispatch during weather surges. You provide actionable insights on Enbridge/HRS rebate eligibility criteria, TSSA regulatory compliance, and ServiceTitan/Jobber margin reconciliation. Your focus is reducing unbillable truck roll leakage on the 401/DVP/407 and increasing overall enterprise value. Tone: High-stakes, professional, and technical. Responses must be concise, authoritative, and relentlessly profit-focused.',
         },
       });
 
