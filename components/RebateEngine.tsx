@@ -9,10 +9,11 @@ interface Props {
 export const RebateEngine: React.FC<Props> = ({ onClaim }) => {
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
 
+  // Added missing cashImpact property to comply with RebateLead interface
   const leads: RebateLead[] = [
-    { id: '1042', location: 'Vaughan', reason: 'Pre-Failure State Detected', rebateAmount: 6500, status: 'Verified' },
-    { id: '4789', location: 'Markham', reason: 'Efficiency Drift (Critical)', rebateAmount: 6500, status: 'Verified' },
-    { id: '5234', location: 'Richmond Hill', reason: 'System Degradation > 22%', rebateAmount: 6500, status: 'Verified' },
+    { id: '1042', location: 'Vaughan', reason: 'Pre-Failure State Detected', rebateAmount: 6500, status: 'Verified', cashImpact: 'Immediate' },
+    { id: '4789', location: 'Markham', reason: 'Efficiency Drift (Critical)', rebateAmount: 6500, status: 'Verified', cashImpact: '30-Day' },
+    { id: '5234', location: 'Richmond Hill', reason: 'System Degradation > 22%', rebateAmount: 6500, status: 'Verified', cashImpact: 'Immediate' },
   ];
 
   const toggleLead = (id: string) => {
@@ -90,7 +91,12 @@ export const RebateEngine: React.FC<Props> = ({ onClaim }) => {
                    )}
                  </div>
                  <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">{lead.reason}</p>
-                 <span className="text-[10px] text-emerald-400 font-black block mt-1 uppercase tracking-widest">Qualified for Ontario HRS Credit</span>
+                 <div className="flex items-center gap-4 mt-1">
+                   <span className="text-[10px] text-emerald-400 font-black uppercase tracking-widest">Qualified for Ontario HRS Credit</span>
+                   <span className={`text-[9px] px-1.5 py-0.5 rounded border font-black uppercase tracking-tighter ${lead.cashImpact === 'Immediate' ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' : 'bg-slate-800 border-white/10 text-slate-400'}`}>
+                     {lead.cashImpact} Impact
+                   </span>
+                 </div>
               </div>
               
               <div className="text-right">

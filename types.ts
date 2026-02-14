@@ -8,6 +8,7 @@ export interface UnitVitalSigns {
   efficiency: number;
   alert?: string;
   crmSynced: boolean;
+  recurringRevOpportunity?: number; // New: Potential RMR
 }
 
 export interface RebateLead {
@@ -16,6 +17,7 @@ export interface RebateLead {
   reason: string;
   rebateAmount: number;
   status: 'Verified' | 'Pending';
+  cashImpact: 'Immediate' | '30-Day';
 }
 
 export interface AccountantStep {
@@ -51,4 +53,5 @@ export interface PredictionNode {
   daysToFailure: number;
   predictedIssue: string;
   recommendation: string;
+  lossAvoidanceValue: number; // New: The "Money Saved" by acting now
 }
